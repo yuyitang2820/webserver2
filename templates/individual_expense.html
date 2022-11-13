@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+<body>
+
+<h4>Go back to index page: <a href='/'>index lage</a></h4>
+<h1>Hi, this is the all the information for expense {{data.expense_id}}</h1>
+
+{% if data.exists == False%}
+ The expense is not found!
+{% endif %}
+
+{% if data.exists %}
+<div>
+<h2>Detailed information of the expense</h2>
+    <b>Expense_id: </b>{{data.expense_id}}
+    <br>
+    <b>Description: </b>{{data.description}}
+    <br>
+    <b>Date: </b>{{data.date}}
+    <br>
+    <b>Cost: </b>{{data.cost}}
+    <br>
+</div>
+
+<div>
+<h2>Detailed information of the budget that approved the expense</h2>
+    <b>Budget_id: </b>{{budget.budget_id}}
+    <br>
+    <b>Category: </b>{{budget.category}}
+    <br>
+    <b>Remaining: </b>{{budget.remaining}}
+    <br>
+    <b>Amount: </b>{{budget.amount}}
+</div>
+
+<div>
+<h2>Detailed informtion of the member who spent the expense</h2>
+    <b>Member_id: </b>{{member.member_id}}
+    <br>
+    <b>First Name: </b>{{member.firstname}}
+    <br>
+    <b>Last Name: </b>{{member.lastname}}
+</div>
+{% endif %}
+
+</body>
+</html>

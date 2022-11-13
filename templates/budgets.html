@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<h4>Go back to index page: <a href='/'>index lage</a></h4>
+<h1>Welcome to Budget's Page</h1>
+
+     <div>
+        <h2>Here is a list of all of our budgets!</h2>
+        {% for n in data %}
+            <div>Budget_id: {{n["budget_id"]}}, category:{{n["category"]}}, remaining:{{n["remaining"]}}, amount:{{n["amount"]}}</div>
+        {% endfor %}
+     </div>
+
+     <br>
+     <br>
+     <br>
+
+     <div>
+        <h3>I would like to learn more about a budget: </h3>
+        <form method="GET" action="/individual_budget">
+            <label>Budget_id</label>
+            <br>
+            <input type="number" name="budget_id" min="1" max="{{count.size}}" required>
+            <button>Submit</button>
+        </form>
+     </div>
+
+
+</body>
+
+</html>

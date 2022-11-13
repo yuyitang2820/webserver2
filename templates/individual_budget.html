@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<body>
+
+<h4>Go back to index page: <a href='/'>index lage</a></h4>
+<h1>Hi, this is the all the information for budget {{data.budget_id}}</h1>
+
+{% if data.exists == False%}
+ The budget is not found!
+{% endif %}
+
+{% if data.exists %}
+<div>
+    <b>Budget_id: </b>{{data.budget_id}}
+    <br>
+    <b>Category: </b>{{data.category}}
+    <br>
+    <b>Spent: </b>{{data.spent}}
+    <br>
+    <b>Remaining: </b>{{data.remaining}}
+    <br>
+    <b>Amount: </b>{{data.amount}}
+    <br>
+    <b>Event Status: </b>{{data.event_status}}
+    <br>
+</div>
+    {% if event_count == 0%}
+    <br>
+        <h2> No events found! </h2>
+    {% endif %}
+
+    {% if event_count > 0 %}
+    <div>
+    <h2>Detailed information of the events related to budget</h2>
+    {% for e in events %}
+        <div>
+            <p><b>Event id</b>: {{e.event_id}} </p>
+            <p><b>Name</b>: {{e.name}} </p>
+            <p><b>Date</b>: {{e.date}} </p>
+            <p><b>Type</b>: {{e.type}} </p>
+            <p><b>Notes</b>: {{e.notes}} </p>
+            <p><b>Location</b>: {{e.location}} </p>
+            <p><b>Status</b>: {{e.status}} </p>
+        </div>
+        <br>
+        <br>
+    {% endfor %}
+    </div>
+    {% endif %}
+
+{% endif %}
+
+</body>
+</html>
