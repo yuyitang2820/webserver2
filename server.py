@@ -811,8 +811,8 @@ def get_add_support_fee_budget():
     fee_id = request.form['fee_id_3']
     budget_id = request.form['budget_id2']
 
-    sql_query = 'SELECT * FROM Supports WHERE fee_id =%s AND budget_id =%s'
-    cursor = g.conn.execute(sql_query, (fee_id, budget_id, ))
+    sql_query = 'SELECT * FROM Supports WHERE fee_id =%s'
+    cursor = g.conn.execute(sql_query, (fee_id, ))
 
     data2 = {'status': False}
     if cursor.rowcount != 0:
