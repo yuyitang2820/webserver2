@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h4>Go back to index page: <a href='/'>index lage</a></h4>
+{% if data2.status == True%}
+ <h1>Add success</h1>
+{% endif %}
+
+{% if data2.status == False%}
+ <h1>Add Failed</h1>
+{% endif %}
+
+</body>
+</html>

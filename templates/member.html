@@ -2,6 +2,7 @@
 
 <html lang="en">
 <head>
+        <meta charset="UTF-8">
     <title>Member</title>
 </head>
     <body>
@@ -77,6 +78,34 @@
 
           </div>
 
+              <br>
+        <br>
+            <div>
+                 <h3>I would like to record a member who attended an event</h3>
+             <form method='POST' action='/add_member_attend_events'>
+                  <label>member_id</label>
+                  <input type = "number" name='member_id_5' min="1" max="{{data.count}}" required>
+
+                <label>event_id</label>
+                  <input type = "number" name='event_id_5' min="1" max="{{data.event_count}}" required>
+
+                  <button>Submit</button>
+              </form>
+                </div>
+
+                <div>
+                 <h3>I would like to record a member who wants to incur an expense</h3>
+
+                    <form method='POST' action='/add_member_incur_expense'>
+                  <label>member_id</label>
+                  <input type = "number" name='member_id_6' min="1" max="{{data.count}}" required>
+
+                <label>expense_id</label>
+                  <input type = "number" name='expense_id' min="1" max="{{data.expense_count}}" required>
+
+                  <button>Submit</button>
+              </form>
+                </div>
 
 
         <br>

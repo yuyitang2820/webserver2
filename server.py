@@ -18,7 +18,7 @@ Read about it online.
 import os
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
-from flask import Flask, request, render_template, g, redirect, Response
+from flask import Flask, request, render_template, g, redirect, Response, url_for
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -143,7 +143,18 @@ def get_members():
     cursor.close()
     count = {}
     count['size'] = len(data)
-    context = dict(data=data, count=count)
+
+    cursor = g.conn.execute("SELECT Count(*) as count FROM Events")
+    result = cursor.fetchone()
+    eventcount = {'count': result['count']}
+    cursor.close()
+
+    cursor = g.conn.execute("SELECT Count(*) as count FROM Expenses")
+    result = cursor.fetchone()
+    expensecount = {'count': result['count']}
+    cursor.close()
+
+    context = dict(data=data, count=count, event_count=eventcount, expense_count=expensecount)
     return render_template("member.html", **context)
 
 
@@ -697,6 +708,53 @@ def get_budgets_by_fees():
         cursor.close()
         context = dict(data2=data2, data=info)
         return render_template("budget_by_fee.html", **context)
+
+
+
+
+@app.route('/add_member_attend_events', methods=['POST'])
+def get_add_member_attend_events():
+
+    member_id = request.form['member_id_5']
+    event_id = request.form['event_id_5']
+
+    sql_query = 'SELECT * FROM Attends WHERE member_id =%s AND event_id =%s'
+    cursor = g.conn.execute(sql_query, (member_id, event_id, ))
+
+    data2 = {'status': False}
+    if cursor.rowcount != 0:
+        cursor.close()
+    else:
+        cursor.close()
+        sql_query = 'INSERT INTO Attends(member_id, event_id) VALUES (%s, %s)'
+        cursor = g.conn.execute(sql_query, (member_id, event_id, ))
+        data2['status'] = True
+        cursor.close()
+    context = dict(data2=data2)
+    return render_template("statuspage.html", **context)
+
+
+@app.route('/add_member_incur_expense', methods=['POST'])
+def get_add_member_incur_expense():
+
+    member_id = request.form['member_id_6']
+    expense_id = request.form['expense_id']
+
+    sql_query = 'SELECT * FROM Incurs WHERE member_id =%s AND expense_id =%s'
+    cursor = g.conn.execute(sql_query, (member_id, expense_id,))
+
+    data2 = {'status': False}
+    if cursor.rowcount != 0:
+        cursor.close()
+    else:
+        cursor.close()
+        sql_query = 'INSERT INTO Incurs(member_id, expense_id) VALUES (%s, %s)'
+        cursor = g.conn.execute(sql_query, (member_id, expense_id,))
+        data2['status'] = True
+        cursor.close()
+    context = dict(data2=data2)
+    return render_template("statuspage.html", **context)
+
 
 
 if __name__ == "__main__":
