@@ -15,12 +15,10 @@ A debugger such as "pdb" may be helpful for debugging.
 Read about it online.
 """
 
-from multiprocessing import context
 import os
-from this import d
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
-from flask import Flask, request, render_template, g, redirect, Response, Request
+from flask import Flask, request, render_template, g, redirect, Response
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -131,25 +129,12 @@ def index():
 # notice that the functio name is another() rather than index()
 # the functions for each app.route needs to have different names
 #
-@app.route('/another')
-def another():
-  return render_template("anotherfile.html")
-
 
 # Example of adding new data to the database
-@app.route('/add', methods=['POST'])
-def add():
-  name = request.form['name']
-  print(name)
-  cmd = 'INSERT INTO test(name) VALUES (:name1), (:name2)';
-  g.conn.execute(text(cmd), name1 = name, name2 = name);
-  return redirect('/')
-
-
-@app.route('/login')
-def login():
-    abort(401)
-    this_is_never_executed()
+#@app.route('/login')
+#def login():
+#    abort(401)
+#    this_is_never_executed()
 
 @app.route('/members', methods=["GET"])
 def get_members():
@@ -209,6 +194,106 @@ def get_individual():
 
       context = dict(data = data)
       return render_template("individual.html", **context)
+
+
+@app.route('/budgets', methods=['GET'])
+def get_budgets():
+    cursor = g.conn.execute("SELECT * FROM Budgets")
+    data = []
+    for result in cursor:
+        info = {"budget_id": result["budget_id"], "category": result["category"], "remaining": result["remaining"],
+                "amount": result["amount"], "event_status": result["event_status"]}
+        data.append(info)
+    cursor.close()
+    count = {}
+    count['size'] = len(data)
+    context = dict(data=data, count=count)
+    return render_template("budgets.html", **context)
+
+
+@app.route('/individual_budget', methods=["GET"])
+def get_individual_budget():
+    budget_id = int(request.args.get("budget_id"))
+
+    data = {}
+    sql_query = "SELECT * FROM Budgets WHERE budget_id=%s"
+    cursor = g.conn.execute(sql_query, (budget_id,))
+
+    if cursor.rowcount == 0:
+        data = {"exists":False, "budget_id":budget_id}
+        context = dict(data = data)
+        return render_template("individual_budget.html", **context)
+
+    result = cursor.fetchone()
+    cursor.close()
+    data = {"exists": True, "budget_id": result["budget_id"], "category": result["category"], "spent": result["spent"], "remaining": result["remaining"],
+                "amount": result["amount"], "event_status": result["event_status"]}
+
+    sql_query = "SELECT e.event_id, e.name, e.date, e.type, e.notes, e.location, e.status FROM Events AS e, Has AS h, Budgets AS b WHERE e.event_id = h.event_id AND h.budget_id = b.budget_id AND b.budget_id=%s"
+    cursor = g.conn.execute(sql_query, (budget_id,))
+    events = []
+    for result in cursor:
+        info = {"event_id": result["event_id"], "name":result["name"], "date":result["date"], "type":result["type"], "notes":result["notes"], "location":result["location"], "status":result["status"]}
+        events.append(info)
+    cursor.close()
+    event_count = len(events)
+
+    context = dict(data=data, events=events, event_count=event_count)
+
+    return render_template("individual_budget.html", **context)
+
+
+@app.route('/expenses', methods=["GET"])
+def get_expenses():
+    cursor = g.conn.execute("SELECT * FROM Expenses")
+    data = []
+    for result in cursor:
+        info = {"expense_id":result["expense_id"], "description":result["description"], "date":result["date"], "cost":result["cost"]}
+        data.append(info)
+    cursor.close()
+
+    count = {}
+    count['size'] = len(data)
+    context = dict(data=data, count=count)
+
+    return render_template("expenses.html", **context)
+
+
+@app.route('/individual_expense', methods=["GET"])
+def get_individual_expense():
+    expense_id = int(request.args.get("expense_id"))
+
+    data = {}
+    sql_query = "SELECT * FROM Expenses WHERE expense_id=%s"
+    cursor = g.conn.execute(sql_query, (expense_id,))
+
+    if cursor.rowcount==0:
+        data = {"exists":False, "expense_id":expense_id}
+        context = dict(data=data)
+        return render_template("individual_expense.html", **context)
+
+    result = cursor.fetchone()
+    cursor.close()
+
+    data = {"exists":True, "expense_id": result["expense_id"], "description":result["description"], "date":result["date"], "cost":result["cost"]}
+
+    sql_query = "SELECT b.budget_id, b.category, b.remaining, b.amount FROM Expenses AS e, Budgets AS b WHERE e.budget_id = b.budget_id AND e.expense_id=%s"
+    cursor = g.conn.execute(sql_query, (expense_id,))
+    result = cursor.fetchone()
+    cursor.close()
+
+    budget = {"budget_id":result["budget_id"], "category":result["category"], "remaining":result["remaining"], "amount":result["amount"]}
+
+    sql_query = "SELECT m.member_id, m.firstname, m.lastname FROM Members AS m, Incurs AS i WHERE m.member_id = i.member_id AND i.expense_id=%s"
+    cursor = g.conn.execute(sql_query, (expense_id,))
+    result = cursor.fetchone()
+    cursor.close()
+
+    member = {"member_id":result["member_id"], "firstname":result["firstname"], "lastname":result["lastname"]}
+
+    context = dict(data=data, budget=budget, member=member)
+    return render_template("individual_expense.html", **context)
+
 
 @app.route('/zipcodes', methods=["GET"])
 def get_zipcodes():

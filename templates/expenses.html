@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+<h1>Welcome to Expense's Page</h1>
+
+<body>
+
+     <div>
+     <h2>Here is a list of all of our expenses!</h2>
+        {% for n in data %}
+            <div>Expense_id: {{n["expense_id"]}}, description:{{n["description"]}}, date:{{n["date"]}}, cost:{{n["cost"]}}</div>
+        {% endfor %}
+     </div>
+
+     <br>
+     <br>
+     <br>
+
+     <div>
+        <h3>I would like to learn more about a expense: </h3>
+        <form method="GET" action="/individual_expense">
+            <label>Expense_id</label>
+            <br>
+            <input type="number" name="expense_id" min="1" max="{{count.size}}" required>
+            <button>Submit</button>
+        </form>
+     </div>
+
+</body>
+
+</html>
