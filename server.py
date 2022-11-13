@@ -402,6 +402,7 @@ def get_members_lists():
         data = []
         for result in cursor:
             info = {}
+            info['member_id'] = result['member_id']
             info['first_name'] = result['firstname']
             info['last_name'] = result['lastname']
             info['email'] = result['email']
@@ -433,6 +434,7 @@ def get_members_lists_zipcodes():
         data = []
         for result in cursor:
             info = {}
+            info['member_id'] = result['member_id']
             info['first_name'] = result['firstname']
             info['last_name'] = result['lastname']
             info['email'] = result['email']
