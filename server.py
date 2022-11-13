@@ -254,6 +254,25 @@ def get_individual_budget():
     return render_template("individual_budget.html", **context)
 
 
+@app.route('/add_expense', methods=['POST'])
+def add_expense():
+    budget_id = request.form['budget_id']
+    description = request.form['description']
+    date = request.form['date']
+    cost = request.form['cost']
+
+    sql_query = "SELECT COUNT(*) AS c FROM Expenses"
+    cursor = g.conn.execute(sql_query)
+    result = cursor.fetchone()
+    expense_id = int(result['c']) + 1
+
+    sql_query = "INSERT INTO Expenses(expense_id, budget_id, description, date, cost) VALUES(%s, %s, %s, %s, %s)"
+    cursor = g.conn.execute(sql_query, (expense_id, budget_id, description, date, cost,))
+    cursor.close()
+
+    return redirect('/expenses')
+
+
 @app.route('/expenses', methods=["GET"])
 def get_expenses():
     cursor = g.conn.execute("SELECT * FROM Expenses")

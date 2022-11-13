@@ -2,7 +2,6 @@
 
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
     <title>Individual_budget</title>
 </head>
 <body>
@@ -29,12 +28,14 @@
     <b>Event Status: </b>{{data.event_status}}
     <br>
 </div>
+
     {% if event_count == 0%}
     <br>
         <h2> No events found! </h2>
     {% endif %}
 
     {% if event_count > 0 %}
+
     <div>
     <h2>Detailed information of the events related to budget</h2>
     {% for e in events %}
@@ -51,9 +52,31 @@
         <br>
     {% endfor %}
     </div>
+
     {% endif %}
 
+
 {% endif %}
+
+<div>
+    <h3>I would like to add an expense: </h3>
+    <form method="POST" action="/add_expense">
+        <p>Expense_info:</p>
+        <label for="budget_id">budget_id</label>
+        <input type="number" id="budget_id" name="budget_id" value="{{data.budget_id}}" readonly="readonly">
+        <label for="description">description</label>
+        <input type="text" id="description" name="description" required>
+        <label for="date">date</label>
+        <input type="date" id='date' name='date' required>
+        <label for="cost">cost</label>
+        <input type="number" id="cost" name="cost" min="0.01" max="{{data.remaining}}" step="0.01" required>
+        <button>Submit</button>
+    </form>
+</div>
+
+<br>
+<br>
+<br>
 
 </body>
 </html>
