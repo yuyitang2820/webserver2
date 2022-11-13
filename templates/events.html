@@ -45,13 +45,25 @@
         </div>
 
         <div>
-            <h2>I want to look up all the budgest that this event has</h2>
+            <h2>I want to look up all the budgets that this event has</h2>
             <form method='GET' action='/budget_by_event'>
                 <label for='event_id_2'>event_id</label>
                 <input type = "number" name='event_id_2' min="1" max="{{count.size}}" required>
                 <button>Submit</button>
             </form>
         </div>
+
+        <div>
+            <h2>I want to add a budget for this event</h2>
+            <form method='POST' action='/add_budget_for_event'>
+                <label for='event_id_3'>event_id</label>
+                <input type = "number" name='event_id3' min="1" max="{{count.size}}" required>
+                <label for='budget_id2'>budget_id</label>
+                <input type = "number" name='budget_id2' min="1" max="{{budgetcount.count}}" required>
+                <button>Submit</button>
+            </form>
+        </div>
+
 
 
     <div>

@@ -30,6 +30,16 @@
         </form>
     </div>
 
+            <div>
+            <h2>I want to support a budget by a fee</h2>
+            <form method='POST' action='/add_support_fee_budget'>
+            <label for="fee_id_3">Fee_id</label>
+            <input type = "number" id="fee_id_3" name='fee_id_3' min="1" max="{{count.size}}" required>
+                <label for='budget_id2'>budget_id</label>
+                <input type = "number" name='budget_id2' min="1" max="{{budgetcount.count}}" required>
+                <button>Submit</button>
+            </form>
+        </div>
 
     
     <div>

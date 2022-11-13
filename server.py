@@ -469,7 +469,12 @@ def get_fees():
     cursor.close()
     count = {}
     count['size'] = len(data)
-    context = dict(data=data, count=count)
+
+    cursor = g.conn.execute("SELECT COUNT(*) AS count FROM Budgets")
+    budgetcount = {'count': cursor.fetchone()['count']}
+    cursor.close()
+
+    context = dict(data=data, count=count, budgetcount=budgetcount)
     return render_template("fees.html", **context)
 
 
@@ -567,7 +572,12 @@ def get_events():
     cursor.close()
     count = {}
     count['size'] = len(data)
-    context = dict(data=data, count=count)
+
+    sql_query = 'SELECT COUNT(*) AS count FROM Budgets'
+    cursor = g.conn.execute(sql_query)
+    budgetcount= {'count': cursor.fetchone()['count']}
+
+    context = dict(data=data, count=count, budgetcount=budgetcount)
     return render_template("events.html", **context)
 
 
@@ -756,6 +766,47 @@ def get_add_member_incur_expense():
     return render_template("statuspage.html", **context)
 
 
+@app.route('/add_budget_for_event', methods=['POST'])
+def get_add_budget_for_event():
+    event_id = request.form['event_id3']
+    budget_id = request.form['budget_id2']
+
+    sql_query = 'SELECT * FROM Has WHERE event_id =%s AND budget_id =%s'
+    cursor = g.conn.execute(sql_query, (event_id, budget_id, ))
+
+    data2 = {'status': False}
+    if cursor.rowcount != 0:
+        cursor.close()
+    else:
+        cursor.close()
+        sql_query = 'INSERT INTO Has(event_id, budget_id) VALUES (%s, %s)'
+        cursor = g.conn.execute(sql_query, (event_id, budget_id,))
+        data2['status'] = True
+        cursor.close()
+    context = dict(data2=data2)
+    return render_template("statuspage.html", **context)
+
+
+@app.route('/add_support_fee_budget', methods=['POST'])
+def get_add_support_fee_budget():
+    fee_id = request.form['fee_id_3']
+    budget_id = request.form['budget_id2']
+
+    sql_query = 'SELECT * FROM Supports WHERE fee_id =%s AND budget_id =%s'
+    cursor = g.conn.execute(sql_query, (fee_id, budget_id, ))
+
+    data2 = {'status': False}
+    if cursor.rowcount != 0:
+        cursor.close()
+    else:
+        cursor.close()
+        sql_query = 'INSERT INTO Supports(fee_id, budget_id) VALUES (%s, %s)'
+        cursor = g.conn.execute(sql_query, (fee_id, budget_id,))
+        data2['status'] = True
+        cursor.close()
+
+    context = dict(data2=data2)
+    return render_template("statuspage.html", **context)
 
 if __name__ == "__main__":
     import click
