@@ -1,0 +1,50 @@
+<html>
+
+<h1>Hi, this is the all the information for member {{data.member_id}}</h1>
+
+{% if data.exists == False%}
+ The user is not found!
+{% endif %}
+
+
+{% if data.exists %}
+<div>
+    <b>Member_id: </b>{{data.member_id}}
+    <br>
+    <b>First_name: </b>{{data.firstname}}
+    <br>
+    <b>Last_name: </b>{{data.lastname}}
+    <br>
+    <b>email: </b>{{data.email}}
+    <br>
+    <b>position: </b>{{data.position}}
+    <br>
+    <b>t_shirt_size: </b>{{data.tshirt_size}}
+    <br>
+    <b>phone_number: </b>{{data.phone_number}}
+    <br>
+</div>
+    <div>
+    <h2>Detailed information of the member's address</h2> 
+    <p><b>Zipcode</b>: {{data.zipcode}} </p>
+    <p><b>Residential_type</b>: {{data.type}} </p>
+    <p><b>City</b>: {{data.city}} </p>
+    <p><b>County</b>: {{data.county}} </p>
+    <p><b>State</b>: {{data.state}} </p>
+    <p><b>State_abbr</b>: {{data.short_state}} </p>
+</div>
+
+    <div>
+    <h2>Detailed information of the member's major</h2> 
+    <p><b>Major_ID</b>: {{data.major_id}} </p>
+    <p><b>Name</b>: {{data.name}} </p>
+    <p><b>Department</b>: {{data.department}} </p>
+    <p><b>College</b>: {{data.college}} </p>
+</div>
+
+
+{% endif %}
+
+
+
+</html>

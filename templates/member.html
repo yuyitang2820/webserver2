@@ -1,0 +1,248 @@
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <div>
+            <h2>Here is a list of all of our members!</h2>
+            {% for n in data %}
+            <div>Member_id: {{n['member_id']}}, first_name:{{n['firstname']}}, last_name: {{n['lastname']}}</div>
+            {% endfor %}
+          </div>
+
+          <br>
+          <br>
+          <br>
+
+
+          <div>
+              <h3>I would like to learn more about a member:</h3>
+              <form method='GET' action='/individual'>
+                  <label>Member_id</label>
+                  <br>
+                  <input type = "number" name='member_id' min="1" max="{{count.size}}" required>
+                  <button>Submit</button>
+              </form>
+          </div>
+       
+          <div>
+            <h3>I would like to look up fees paid by a member</h3>
+            <form method='GET' action='/fees_by_member'>
+                <label>Member_id</label>
+                <input type = "number" name='member_id_2' min="1" max="{{count.size}}" required>
+                <button>Submit</button>
+            </form>
+
+          </div>
+
+          <div>
+          <h3>I would like to look up the events attended by this member</h3>
+          <form method='GET' action='/events_by_member'>
+            <label for='member_id_3'>Member_id</label>
+            <input type = "number" name='member_id_3' min="1" max="{{count.size}}" required>
+            <button>Submit</button>
+        </form>
+      </div>
+       
+      <div>
+        <h3>I would like to look up the expenses incurred by this member</h3>
+        <form method='GET' action='/expenses_by_member'>
+          <label for='member_id_4'>Member_id</label>
+          <input type = "number" name='member_id_4' min="1" max="{{count.size}}" required>
+          <button>Submit</button>
+      </form>
+    </div>
+
+
+
+
+          <div>
+            <h3>I would like to record a member who just paid his fee</h3>
+            <form method='POST' action='/add_fee'>
+                <label for='member_id_3'>Member_id</label>
+                <input type = "number" id='member_id_3' name='member_id_3' min="1" max="{{count.size}}" required>
+                <label for='amount'>Amount</label>
+                <input type = "number" id = 'amount' name='amount' min="1"  required>
+                <label for='date'>date</label>
+                <input type = "date" id = 'date' name='date'  required>
+                <button>Submit</button>
+            </form>
+
+          </div>
+
+          <div>
+
+          </div>
+
+
+
+        <br>
+        <br>
+        <br>
+          <div>
+            <h3>I would like to create a new member</h3>
+            <form method='POST' action='/add_member'>
+                <p>Personal_info:</p>
+                <label for='first_name'>first_name</label>
+                <input type = "text" id='first_name' name='first_name' pattern="[A-Za-z]+" placeholder="Yuyi" required>
+                <label for='last_name'>last_name</label>
+                <input type = "text" id='last_name' name='last_name'  pattern="[A-Za-z]+" placeholder="Tang"  required>
+                <label for='email'>email</label>
+                <input type = "email" id='email' name='email' placeholder="123456@yahoo.com" required>
+                <label for='position'>position</label>
+                <select id="position" name="position" required>
+                    <option value="member">member</option>
+                    <option value="secretary">secretary</option>
+                    <option value="vice president">vice president</option>
+                    <option value="president">president</option>
+                    <option value="treasurer">treasurer</option>
+                  </select>
+                <label for='tshirt_size'>tshirt_size</label>
+                <select id="tshirt_size" name="tshirt_size" required>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                    <option value="X-Large">X-Large</option>
+                  </select>
+                <label for='phone_number'>phone_number</label>
+                <input type = "tel" id='phone_number' name='phone_number' pattern='[0-9]{10}' placeholder="1234567890" required>
+                <br>
+                <p>Major:</p>
+                <label for='major_name'>major_name</label>
+                <input type = "text" id='major_name' name='major_name' placeholder="Computer Science" required>
+                <label for='department'>department</label>
+                <input type = "text" id='department' name='department' placeholder="Computer Science" required>
+                <label for='college'>college</label>
+                <input type = "text" id='college' name='college' placeholder="Engineering" required>
+                <br>
+                <p>address:</p>
+                <label for='zipcode'>zipcode</label>
+                <input type = "text" id='zipcode' name='zipcode' pattern="[0-9]{5}" placeholder="10025" required>
+                <label for='address_type'>address_type</label>
+                <select id="address_type" name="address_type" required>
+                    <option value="residential">residential</option>
+                    <option value="PO Box">PO Box</option>
+                  </select>
+                <label for='city'>city</label>
+                <input type = "text" id='city' name='city' placeholder="New York" required>
+                <label for='county'>county</label>
+                <input type = "text" id='county' name='county' placeholder="New York" required>
+                <label for='state'>state</label>
+                <select id="state" name="state" required>
+                    <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option>
+                    <option value="California">California</option>
+                    <option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option>
+                    <option value="Delaware">Delaware</option>
+                    <option value="District Of Columbia">District Of Columbia</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Hawaii">Hawaii</option>
+                    <option value="Idaho">Idaho</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Indiana">Indiana</option>
+                    <option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option>
+                    <option value="Maryland">Maryland</option>
+                    <option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option>
+                    <option value="Minnesota">Minnesota</option>
+                    <option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Montana">Montana</option>
+                    <option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option>
+                    <option value="New York">New York</option>
+                    <option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
+                    <option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option>
+                    <option value="South Dakota">South Dakota</option>
+                    <option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Utah">Utah</option>
+                    <option value="Vermont">Vermont</option>
+                    <option value="Virginia">Virginia</option>
+                    <option value="Washington">Washington</option>
+                    <option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option>
+                    <option value="Wyoming">Wyoming</option>
+                </select>
+                <label for='short_state'>short_state</label>
+                <select id="short_state" name="short_state" required>
+                    <option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AZ">AZ</option>
+                    <option value="AR">AR</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="DC">DC</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="IA">IA</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="ME">ME</option>
+                    <option value="MD">MD</option>
+                    <option value="MA">MA</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MS">MS</option>
+                    <option value="MO">MO</option>
+                    <option value="MT">MT</option>
+                    <option value="NE">NE</option>
+                    <option value="NV">NV</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NY">NY</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WV">WV</option>
+                    <option value="WI">WI</option>
+                    <option value="WY">WY</option>
+                </select>
+                <button>Submit</button>
+            </form>
+        </div>
+
+       
+    </body>
+</html>
+
+<script>
+
+</script>

@@ -1,0 +1,68 @@
+<html>
+
+
+<body>
+
+   
+      
+        <div>
+            <h2>I want to look up an event by eventid: </h2>
+            <form method='GET' action='/individual_event'>
+                <label for='event_id'>event_id</label>
+                <input type = "number" name='event_id' min="1" max="{{count.size}}" required>
+                <button>Submit</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>I want to add an event: </h2>
+            <form method='POST' action='/add_event'>
+                <label for='event_name'>event_name</label>
+                <input type = "text" name='event_name' placeholder="January Meeting" required>
+                <label for='event_date'>event_date</label>
+                <input type = "date" name='event_date' required>
+                <label for='event_type'>event_type</label>
+                <select id="event_type" name="event_type" required>
+                    <option value="Meeting">Meeting</option>
+                    <option value="Social">Social</option>
+                    <option value="Election">Election</option>
+                    <option value="Guest Speaker">Guest Speaker</option>
+                    <option value="Game">Game</option>
+                  </select>
+                <label for='event_notes'>event_notes</label>
+                <input type = "text" name='event_notes' placeholder="Meeting to discuss next election" required>
+                <label for='event_location'>event_location</label>
+                <input type = "text" name='event_location' placeholder="MU255" required>
+
+                <button>Submit</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>I want to look up all the budgest that this event has</h2>
+            <form method='GET' action='/budget_by_event'>
+                <label for='event_id_2'>event_id</label>
+                <input type = "number" name='event_id_2' min="1" max="{{count.size}}" required>
+                <button>Submit</button>
+            </form>
+        </div>
+
+
+    <div>
+        <h2>Here is a list of all of the events!</h2>
+        {% for n in data %}
+        <div>
+            <p>Event_id: {{n['event_id']}}</p> 
+            <p>Name:{{n['name']}}</p> 
+            <p> Date: {{n['date']}}</p> 
+            <p> Type: {{n['type']}} </p> 
+            <p> Notes: {{n['notes']}}</p> 
+            <p> Location: {{n['location']}}</p> 
+            <p> Status: {{n['status']}}</p> 
+        </div>
+        <br>
+        {% endfor %}
+      </div>
+</body>
+
+    </html>

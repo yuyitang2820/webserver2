@@ -1,0 +1,24 @@
+<html>
+    <body>
+        {% if data2.exists == False%}
+        <h1>There is no budget associated with this event with id {{data2.event_id}}</h1>
+       {% endif %}
+
+       {% if data2.exists == True%}
+       <h2>Here is a list of budgets that the event is associated with</h2>
+        {% for n in data %}
+        <div>
+            <p>budget_id: {{n['budget_id']}}</p> 
+            <p>Category:{{n['category']}}</p> 
+            <p> Spent: {{n['spent']}}</p> 
+            <p> Remaining: {{n['remaining']}} </p> 
+            <p> Amount: {{n['amount']}}</p> 
+            <p> Event_status: {{n['Event_status']}}</p> 
+        </div>
+        <br>
+        {% endfor %}
+        {% endif %}
+
+
+    </body>
+    </html>

@@ -1,0 +1,25 @@
+<html>
+
+<h3>Here is a list of students who study {{data2.major_name}} major</h3>
+
+{% if data2.exists == False%}
+ <h3>There is no member who studies {{data2.major_name}} major </h3>
+{% endif %}
+
+
+{% if data2.exists == True%}
+{% for n in data %}
+<div>
+    <p>Member_id: {{n['member_id']}}</p> 
+    <p>first_name:{{n['first_name']}}</p>
+    <p>last_name: {{n['last_name']}} </p>
+    <p>email: {{n['email']}}</p> 
+    <p>position:{{n['position']}}</p>
+    <p>tshirt_size: {{n['tshirt_size']}} </p>
+    <p>phone_number: {{n['phone_number']}} </p>
+    <br>
+</div>
+{% endfor %}
+{% endif %}
+
+    </html>

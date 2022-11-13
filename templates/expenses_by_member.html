@@ -1,0 +1,32 @@
+<html>
+
+
+<body>
+
+{% if data2.exists == False%}
+   <h2> There is no expense incurred by this member with id {{data2.member_id}}</h2>
+   {% endif %}
+
+   {% if data2.exists == True%}
+   
+   <h2>Here is a list of the expenses incurred by this member with id {{data2.member_id}}</h2>
+   <h2>The member incurred a total of {{data2.sum}} dollars of expenses</h2>
+   {% for n in data %}
+   <div>
+       <p>Expense_id: {{n['expense_id']}}</p>
+       <p>Description: {{n['description']}}</p>
+       <p>Date: {{n['date']}}</p>
+       <p>Cost: {{n['cost']}}</p>
+       <br>
+   </div>
+   {% endfor %}
+
+
+
+   {% endif %}
+
+
+</body>
+
+
+    </html>

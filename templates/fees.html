@@ -1,0 +1,40 @@
+<html>
+    <h1>Welcome to the fees page</h1>
+
+
+    <div>
+        <h3>I want to look up who paid a fee:</h3>
+        <form method='GET' action='/fee_individual'>
+            <label for="fee_id">Fee_id</label>
+            <input type = "number" id="fee_id" name='fee_id' min="1" max="{{count.size}}" required>
+            <button>Submit</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>I want to look up what budgets that this fee has supported</h3>
+        <form method='GET' action='/budget_by_fee'>
+            <label for="fee_id_2">Fee_id</label>
+            <input type = "number" id="fee_id_2" name='fee_id_2' min="1" max="{{count.size}}" required>
+            <button>Submit</button>
+        </form>
+    </div>
+
+
+    
+    <div>
+        <h1>Here is a list of the majors our members study !</h1>
+        {% for n in data %}
+        <div>
+            <p><b>Fee_id</b>: {{n.fee_id}} </p>
+            <p><b>Date</b>: {{n.date}} </p>
+            <p><b>Amount</b>: {{n.amount}} </p>
+            <p><b>Source</b>: {{n.source}} </p>
+            <p><b>Notes</b>: {{n.notes}} </p>
+            <br>
+            <br>
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+    </html>

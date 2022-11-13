@@ -1,0 +1,24 @@
+<html>
+
+    {% if data2.exists == False%}
+    <h1>This member {{data2.member_id}} didn't pay any fee! </h1>
+   {% endif %}
+
+   {% if data2.exists == True%}
+   <h1>Here is a list of the fees that the member {{data2.member_id}} has paid</h1>
+    {% for n in data %}
+    <div>
+        <p><b>Fee_id</b>: {{n.fee_id}} </p>
+        <p><b>Date</b>: {{n.date}} </p>
+        <p><b>Amount</b>: {{n.amount}} </p>
+        <p><b>Source</b>: {{n.source}} </p>
+        <p><b>Notes</b>: {{n.notes}} </p>
+        <br>
+        <br>
+        <br>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
+    </html>

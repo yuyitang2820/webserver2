@@ -1,0 +1,34 @@
+<html>
+
+
+<body>
+
+{% if data2.exists == False%}
+   <h2> This fee with id {{data2.fee_id}} does not support any budgets</h2>
+   {% endif %}
+
+   {% if data2.exists == True%}
+   
+   <h2>Here is the budget supported by this fee with id {{data2.fee_id}}</h2>
+
+
+   <div>
+       <p>Budget_id: {{data['budget_id']}}</p>
+       <p>Category: {{data['category']}}</p>
+       <p>Spent: {{data['spent']}}</p>
+       <p>Remaining: {{data['remaining']}}</p>
+       <p>Amount: {{data['amount']}}</p>
+       <p>Event_status: {{data['event_status']}}</p>
+       <br>
+   </div>
+
+
+
+
+   {% endif %}
+
+
+</body>
+
+
+    </html>

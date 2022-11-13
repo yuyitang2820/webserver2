@@ -1,0 +1,38 @@
+<html>
+<h1>Welcome to Major's Page!</h1>
+
+<div>
+    I want to know how many students study this major
+
+    <div>
+        <form method='GET' action='/members_list'>
+            <label>major_name</label>
+            <input type = "text" id='major_name' name='major_name' required>
+            <label>max number of students you want to see</label>
+            <input type = "number" id='page_limit' name='page_limit' min=1 value=5>
+            <button>Submit</button>
+        </form>
+    </div>
+
+</div>
+   
+    <div>
+        <h1>Here is a list of the majors our members study !</h1>
+        {% for n in data %}
+        <div>
+            <p><b>Major_ID</b>: {{n.major_id}} </p>
+            <p><b>Name</b>: {{n.name}} </p>
+            <p><b>Department</b>: {{n.department}} </p>
+            <p><b>College</b>: {{n.college}} </p>
+            <br>
+            <br>
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+   
+   
+   
+   
+   
+    </html>
