@@ -17,10 +17,9 @@ Read about it online.
 
 from multiprocessing import context
 import os
-from this import d
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
-from flask import Flask, request, render_template, g, redirect, Response, Request
+from flask import Flask, request, render_template, g, redirect
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
