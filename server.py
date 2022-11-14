@@ -263,20 +263,33 @@ def get_individual_budget():
 @app.route('/add_expense', methods=['POST'])
 def add_expense():
     budget_id = request.form['budget_id']
+    category = request.form['category']
     description = request.form['description']
     date = request.form['date']
     cost = request.form['cost']
 
-    sql_query = "SELECT COUNT(*) AS c FROM Expenses"
-    cursor = g.conn.execute(sql_query)
+    sql_query = "SELECT category FROM Budgets WHERE budget_id=%s"
+    cursor = g.conn.execute(sql_query, (budget_id,))
     result = cursor.fetchone()
-    expense_id = int(result['c']) + 1
+    true_category = result['category']
 
-    sql_query = "INSERT INTO Expenses(expense_id, budget_id, description, date, cost) VALUES(%s, %s, %s, %s, %s)"
-    cursor = g.conn.execute(sql_query, (expense_id, budget_id, description, date, cost,))
-    cursor.close()
+    if category == true_category:
+        sql_query = "SELECT COUNT(*) AS c FROM Expenses"
+        cursor = g.conn.execute(sql_query)
+        result = cursor.fetchone()
+        expense_id = int(result['c']) + 1
 
-    return redirect('/expenses')
+        sql_query = "INSERT INTO Expenses(expense_id, budget_id, description, date, cost) VALUES(%s, %s, %s, %s, %s)"
+        cursor = g.conn.execute(sql_query, (expense_id, budget_id, description, date, cost,))
+        cursor.close()
+
+        return redirect('/expenses')
+
+    else:
+        data2 = {'status': False}
+        context = dict(data2=data2)
+
+        return render_template('statuspage.html', **context)
 
 
 @app.route('/expenses', methods=["GET"])
