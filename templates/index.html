@@ -2,29 +2,28 @@
 
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>Index Page</title>
-      <style>
-    body{
-      font-size: 15pt;
-      font-family: arial;
-    }
-  </style>
+    <link rel="stylesheet" href={{ url_for('static', filename="css/style.css") }}>
 </head>
 
 
-
 <body>
- <h1>Welcome to Index Page!</h1>
+ <div class="menu-bar">
+    <ul>
+        <li><a href="/members">Member</a></li>
+        <li><a href="/majors">Major</a></li>
+        <li><a href="/zipcodes">Zipcode</a></li>
+        <li><a href="/events">Event</a></li>
+        <li><a href="/fees">Fee</a></li>
+        <li><a href="/budgets">Budget</a></li>
+        <li><a href="/expenses">Expense</a></li>
+    </ul>
+ </div>
 
-    <h3>Members Page: <a href="/members">Members Page</a></h3>
-     <h3>Zipcodes Page: <a href="/zipcodes">Zipcodes Page</a></h3>
-      <h3>Majors Page: <a href="/majors">Majors Page</a></h3>
-    <h3>Events Page: <a href="/events">Events Page</a></h3>
-   <h3>Fees Page: <a href="/fees">Fees Page</a></h3>
-   <h3>Budgets Page: <a href="/budgets">Budgets Page</a></h3>
-   <h3>Expenses Page: <a href="/expenses">Expenses Page</a></h3>
-
+<div>
+ <h1>Welcome to Index Page</h1>
+</div>
 
 
 </body>
