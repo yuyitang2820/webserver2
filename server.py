@@ -249,7 +249,13 @@ def get_individual_budget():
     cursor.close()
     event_count = len(events)
 
-    context = dict(data=data, events=events, event_count=event_count)
+    sql_query = "SELECT DISTINCT category FROM Budgets"
+    cursor = g.conn.execute(sql_query)
+    category_list = []
+    for result in cursor:
+        category_list.append(result['category'])
+    cursor.close()
+    context = dict(data=data, events=events, event_count=event_count, category_list=category_list)
 
     return render_template("individual_budget.html", **context)
 
