@@ -283,6 +283,10 @@ def add_expense():
         cursor = g.conn.execute(sql_query, (expense_id, budget_id, description, date, cost,))
         cursor.close()
 
+        sql_query = 'Update Budgets SET remaining=remaining-%s, spent=spent+%s WHERE budget_id=%s'
+        cursor = g.conn.execute(sql_query, (cost, cost, budget_id,))
+        cursor.close()
+
         return redirect('/expenses')
 
     else:
