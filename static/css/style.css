@@ -1,0 +1,39 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: mediumpurple;
+    background-size: cover;
+    text-align: center;
+    font-size: 15pt;
+}
+
+.menu-bar{
+    background: #F3F3F3;
+    text-align: center;
+}
+
+.menu-bar ul{
+    display: inline-flex;
+    list-style: none;
+    color: black;
+}
+
+.menu-bar ul li{
+    width: 150px;
+    margin: 20px;
+    padding: 10px;
+}
+
+.menu-bar ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+.active, .menu-bar ul li:hover{
+    background: rebeccapurple;
+    border-radius: 3px;
+}
