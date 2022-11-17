@@ -255,13 +255,21 @@ def get_individual_budget():
     for result in cursor:
         category_list.append(result['category'])
     cursor.close()
-    context = dict(data=data, events=events, event_count=event_count, category_list=category_list)
+
+    sql_query = "SELECT COUNT(*) AS c FROM Members"
+    cursor = g.conn.execute(sql_query)
+    result = cursor.fetchone()
+    member_count = int(result['c'])
+    cursor.close()
+
+    context = dict(data=data, events=events, event_count=event_count, category_list=category_list, member_count=member_count)
 
     return render_template("individual_budget.html", **context)
 
 
 @app.route('/add_expense', methods=['POST'])
 def add_expense():
+    member_id = request.form['member_id']
     budget_id = request.form['budget_id']
     category = request.form['category']
     description = request.form['description']
@@ -285,6 +293,10 @@ def add_expense():
 
         sql_query = 'Update Budgets SET remaining=remaining-%s, spent=spent+%s WHERE budget_id=%s'
         cursor = g.conn.execute(sql_query, (cost, cost, budget_id,))
+        cursor.close()
+
+        sql_query = 'INSERT INTO Incurs(member_id, expense_id) VALUES(%s, %s)'
+        cursor = g.conn.execute(sql_query, (member_id, expense_id,))
         cursor.close()
 
         return redirect('/expenses')
